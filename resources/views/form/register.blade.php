@@ -124,7 +124,7 @@
 
                 {{-- INI NANTI TIDAK DIPAKE --}}
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="address" style="font-weight: 600; font-size: 15px;">Address</label>
+                    <label class="form-label" for="address" style="font-weight: 600; font-size: 15px;">Alamat</label>
                     <input type="text" name="address" id="address" class="form-control" style="padding: 15px;  border-radius:  13px; border: 1px solid #ccc; font-size: 13px;" />
                 </div>
 
