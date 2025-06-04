@@ -10,7 +10,9 @@ class Pembelian extends Model
     use HasFactory;
 
     protected $fillable = [
-        'tiket_id',
+        'user_id',
+        'event_id',
+        'kategori_id',
         'jumlah_tiket',
         'total_harga',
         'tanggal_aktif',

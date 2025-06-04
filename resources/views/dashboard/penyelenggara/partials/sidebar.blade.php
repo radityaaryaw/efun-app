@@ -29,7 +29,7 @@
                         <i class="fa-solid fa-file-pen" style="color: #ffffff;"></i>
                     </div>
 
-                    <span class="nav-link-text ms-1">Validasi Data</span>
+                    <span class="nav-link-text ms-1">Validasi Tiket</span>
                 </a>
             </li>
 

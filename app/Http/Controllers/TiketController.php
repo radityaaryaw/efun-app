@@ -12,7 +12,9 @@ class TiketController extends Controller
     // Menampilkan semua tiket
     public function index()
     {
-        $tikets = Tiket::with(['user', 'penyelenggara', 'kategori'])->latest()->get();
+        
+        $tikets = Tiket::with(['user', 'penyelenggara', 'kategori','event'])->latest()->get();
+      
         return view('dashboard.admin.tiket', compact('tikets'));
     }
 

@@ -43,36 +43,24 @@
                             <th scope="col">Total Harga</th>
                             <th scope="col">Aktif Tiket</th>
                             <th scope="col">Kategori</th> {{-- dari relasi ke Kategori --}}
-                            <th scope="col">Aksi</th>
+                            <th scope="col">Status</th>
+
+                           <th scope="col">Bukti Pembayaran </th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($pembelian as $item)
                             <tr style="text-align: center">
                                 <th>{{ $loop->iteration }}</th>
-
-                                {{-- Relasi ke user --}}
-                                <td>{{ $item->user->name ?? '-' }}</td>
-
-                                {{-- Relasi ke event --}}
-                                <td>{{ $item->event->title ?? '-' }}</td>
-
-                                {{-- Total harga --}}
-                                <td>Rp {{ number_format($item->total_harga, 0, ',', '.') }}</td>
-
-                                {{-- Tanggal aktif tiket --}}
-                                <td>{{ \Carbon\Carbon::parse($item->tanggal_aktif)->format('d M Y') }}</td>
-
-                                {{-- Relasi ke kategori --}}
-                                <td>{{ $item->kategori->nama_kategori ?? '-' }}</td>
-
-                                {{-- Aksi --}}
+                                <td>{{ $item->user->name }}</td>
+                                <td>{{ $item->event->judul }}</td>
+                                <td>{{ $item->total_harga }}</td>
+                                <td>{{ \Carbon\Carbon::parse($item->tanggal_aktif)->format('d F Y') }}</td>
+                                <td>{{ $item->status }}</td>
+                                <td>{{ $item->kategori->nama_kategori }} | {{ $item->kategori->sub_kategori }}</td>
                                 <td>
-                                    <button type="button" data-bs-toggle="modal"
-                                        data-bs-target="#viewDetail{{ $item->id }}" class="btn-riwayat"
-                                        style="font-size: 13px; background-color: #007bff; margin-left: 10px;">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
+                                    <a href="{{ asset('img/' . $item->bukti_transfer) }}" target="_blank"
+                                        class="btn btn-primary btn-sm">Lihat Bukti</a>
                                 </td>
                             </tr>
                         @endforeach
