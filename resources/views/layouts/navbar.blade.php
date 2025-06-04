@@ -79,6 +79,16 @@
                                             style="font-size: 0.85rem;">Logout</button>
                                     </form>
                                 </li>
+                                @if (auth()->user()->role == 'admin')
+                                    <li>
+                                        <a class="dropdown-item" href="/dashboard"
+                                            style="font-size: 0.85rem;">Dashboard</a>
+                                    </li>
+                                @endif
+                                <li>
+                                    <a class="dropdown-item" href="/dashboard/user"
+                                        style="font-size: 0.85rem;">Dashboard</a>
+                                </li>
                             </ul>
                         </li>
                     @endauth

@@ -12,7 +12,7 @@ class PembelianController extends Controller
     {
         $search = $request->input('search');
 
-        $pembelian = Pembelian::with(['user', 'event', 'kategori', 'tiket'])
+        $searchPembelian = Pembelian::with(['user', 'event', 'kategori', 'tiket'])
             ->when($search, function ($query, $search) {
                 $query->whereHas('user', function ($q) use ($search) {
                     $q->where('name', 'like', '%' . $search . '%');
@@ -20,23 +20,35 @@ class PembelianController extends Controller
             })
             ->orderBy('created_at', 'desc')
             ->get();
-
+        $pembelian = Pembelian::with(['user', 'event', 'kategori', 'tiket'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
         return view('dashboard.user.pembelian', compact('pembelian', 'search'));
     }
     //Tambah pembelian
     public function store(Request $request)
     {
-        $request->validate([
-            'user_id' => 'required',
-            'event_id' => 'required',
-            'kategori_id' => 'required',
-            'tiket_id' => 'required',
-            'jumlah' => 'required|integer|min:1',
-            'total_harga' => 'required|integer|min:0',
-        ]);
+           
 
-        Pembelian::create($request->all());
+            $pembelian = Pembelian::create([
+                'user_id' => $request->user_id,
+                'event_id' => $request->event_id,
+                'kategori_id' => $request->kategori_id,
+                'jumlah_tiket' => $request->jumlah_tiket,
+                'total_harga' => $request->total_harga,
+                'tanggal_aktif' => $request->tanggal_aktif,
+                'bukti_transfer' => $request->bukti_transfer,
+                'status' => 'Pending'
+            ]);
 
+          if ($request->hasFile('bukti_transfer')) {
+            $file = $request->file('bukti_transfer');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('img'), $filename);
+            $pembelian->bukti_transfer = $filename;
+            $pembelian->save();
+        }
         return redirect()->back()->with('success', 'Pembelian berhasil ditambahkan.');
     }
 
@@ -58,5 +70,12 @@ class PembelianController extends Controller
         $pembelian->save();
 
         return redirect()->back()->with('error', 'Pembelian telah ditolak.');
+    }
+
+    public function viewacc(){
+        $pembelian = Pembelian::with(['user', 'event', 'kategori', 'tiket'])
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('dashboard.penyelenggara.pembelian', compact('pembelian'));
     }
 }

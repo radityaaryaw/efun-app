@@ -60,6 +60,8 @@ Route::middleware(['auth', 'role:User'])->prefix('dashboard/user')->name('user.'
     Route::get('/', [AuthController::class, 'user'])->name('dash');
     Route::resource('pembelian', PembelianController::class);
 });
+//Proses Pembelian Tiket
+ Route::post('/pembelian/store', [PembelianController::class, 'store'])->name('store');
 
 // Penyelenggara
 Route::middleware(['auth', 'role:Penyelenggara'])->prefix('dashboard/penyelenggara')->name('penyelenggara.')->group(function () {

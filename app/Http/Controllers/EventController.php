@@ -21,7 +21,7 @@ class EventController extends Controller
         }
 
         $events = $query->orderBy('created_at', 'desc')->paginate(10);
-
+        
         return view('dashboard.admin.eventmenu.event', compact('events', 'search'));
     }
 

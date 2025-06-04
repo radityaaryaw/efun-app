@@ -147,7 +147,7 @@
                         @foreach ($tikets as $tiket)
                             <tr style="text-align: center">
                                 <th>{{ $loop->iteration }}</th>
-                                <td>{{ $tiket->event->penyelenggara->name }}</td>
+                                <td>{{ $tiket->event->judul }}</td>
                                 <td>{{ $tiket->user->name }}</td>
                                 <td>{{ $tiket->event->judul }}</td>
                                 <td>{{ \Carbon\Carbon::parse($tiket->event->tanggal_event)->format('d M Y') }}</td>

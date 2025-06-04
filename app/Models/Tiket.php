@@ -35,4 +35,6 @@ class Tiket extends Model
     {
         return $this->belongsTo(Kategori::class);
     }
+    
+
 }
