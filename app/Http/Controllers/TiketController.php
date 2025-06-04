@@ -14,7 +14,6 @@ class TiketController extends Controller
     {
         
         $tikets = Tiket::with(['user', 'penyelenggara', 'kategori','event'])->latest()->get();
-      
         return view('dashboard.admin.tiket', compact('tikets'));
     }
 

@@ -35,6 +35,10 @@ class Tiket extends Model
     {
         return $this->belongsTo(Kategori::class);
     }
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
     
 
 }

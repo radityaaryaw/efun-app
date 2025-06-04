@@ -19,9 +19,8 @@ class EventController extends Controller
             $query->where('judul', 'like', "%{$search}%")
                   ->orWhere('lokasi', 'like', "%{$search}%");
         }
-
-        $events = $query->orderBy('created_at', 'desc')->paginate(10);
-        
+        $event = $query->orderBy('created_at', 'desc')->paginate(10);
+        $events = Event::with('kategori','penyelenggara','tikets')->get();
         return view('dashboard.admin.eventmenu.event', compact('events', 'search'));
     }
 

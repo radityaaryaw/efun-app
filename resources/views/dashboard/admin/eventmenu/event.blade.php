@@ -44,10 +44,10 @@
                             <tr>
                                 <th>{{ $loop->iteration }}</th>
                                 <td class="text-center">
-                                    <img src="{{ $event->event_img }}" alt="Cover Image" class="rounded"
+                                    <img src="{{ asset('img/' . $event->event_img) }}" alt="Cover Image" class="rounded"
                                         style="width: 150px;">
                                 </td>
-                                <td>{{ $event->penyelenggara->name ?? '-' }}</td>
+                                <td>{{ $event->user->name ?? '-' }}</td>
                                 <td>{{ $event->judul }}</td>
                                 <td>{{ Str::limit($event->deskripsi ?? '-', 50) }}</td>
                                 <td>Rp {{ number_format($event->harga_tiket, 0, ',', '.') }}</td>
@@ -102,7 +102,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                     <h6 class="mb-1">Cover:</h6>
-                                                    <img src="{{ $event->event_img }}" alt="Cover Image"
+                                                    <img src="{{ asset('img/' . $event->event_img) }}" alt="Cover Image"
                                                         class="img-fluid rounded">
 
                                                     <h6 class="mb-1">Judul Event:</h6>
@@ -142,7 +142,7 @@
                 </table>
 
                 <div>
-                    {{ $events->links() }}
+                    
                 </div>
             </div>
         </main>
