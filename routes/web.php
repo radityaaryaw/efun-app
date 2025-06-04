@@ -16,7 +16,7 @@ Route::get('/', [LandingController::class, 'home'])->name('home');
 
 // Guest (belum login)
 Route::middleware(['guest'])->group(function () {
-    Route::get('/event', [LandingController::class, 'event'])->name('event');
+    Route::get('/events', [LandingController::class, 'event'])->name('event');
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::get('/register', [AuthController::class, 'register']);
     Route::post('/register/store', [AuthController::class, 'regisakun'])->name('regisakun');
