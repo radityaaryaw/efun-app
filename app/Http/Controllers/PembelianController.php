@@ -23,6 +23,22 @@ class PembelianController extends Controller
 
         return view('dashboard.user.pembelian', compact('pembelian', 'search'));
     }
+    //Tambah pembelian
+    public function store(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'event_id' => 'required',
+            'kategori_id' => 'required',
+            'tiket_id' => 'required',
+            'jumlah' => 'required|integer|min:1',
+            'total_harga' => 'required|integer|min:0',
+        ]);
+
+        Pembelian::create($request->all());
+
+        return redirect()->back()->with('success', 'Pembelian berhasil ditambahkan.');
+    }
 
     // Menyetujui pembelian tiket
     public function setuju($id)

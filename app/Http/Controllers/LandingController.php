@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event;
 
 class LandingController extends Controller
 {
@@ -12,10 +13,12 @@ class LandingController extends Controller
     }
     public function event()
     {
-        return view('event');
+        $events = Event::with('kategori')->get();
+        return view('event',compact('events'));
     }
-    public function detailevent()
+    public function detailevent($id)
     {
-        return view('detailevent');
+        $event = Event::with('kategori')->find($id);
+        return view('detailevent',compact('event'));
     }
 }

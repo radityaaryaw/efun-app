@@ -16,7 +16,7 @@ class EventSeeder extends Seeder
                 'tanggal_event' => '2025-08-15',
                 'lokasi' => 'Stadion Utama',
                 'harga_tiket' => 150000,
-                'event_img' => 'rock_concert.jpg',
+                'event_img' => 'contoh.png',
                 'status' => 'Pending',
                 'kategori_id' => 1,           // Pastikan ID kategori valid
                 'penyelenggara_id' => 2,      // Pastikan ID user valid
@@ -29,7 +29,7 @@ class EventSeeder extends Seeder
                 'tanggal_event' => '2025-09-10',
                 'lokasi' => 'Stadion Sepak Bola',
                 'harga_tiket' => 100000,
-                'event_img' => 'football_match.jpg',
+                'event_img' => 'logo.png',
                 'status' => 'Pending',
                 'kategori_id' => 2,
                 'penyelenggara_id' => 2,

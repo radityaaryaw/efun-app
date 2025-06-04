@@ -32,7 +32,7 @@
       font-weight: bold;
       font-size: 17px;
     ">
-      Kategori | Event
+      {{$event->kategori->nama_kategori}} | {{$event->kategori->sub_kategori}}
     </span>
     <br>
     <span style="
@@ -50,20 +50,20 @@
   <div style="display: flex; flex-wrap: wrap; gap: 20px; margin-top: 30px;">
   <!-- Sisi kiri: Gambar -->
   <div style="flex: 1 1 300px;">
-    <img src="{{ asset('img/contoh.png') }}" alt="Gambar Event" style="width: 100%; height: auto; display: block;">
+    <img src="{{asset('/img/' . $event->event_img) }}" alt="Gambar Event" style="width: 100%; height: auto; display: block;">
   </div>
 
   <!-- Sisi kanan: Informasi Event -->
   <div style="flex: 2 1 300px;">
     <!-- Nama Event -->
     <h2 style="margin-top: 0; font-size: 25px; color: #dc5496; font-weight: 600; margin-bottom: 20px;">
-    <i class="fas fa-star" style="margin-right: 15px; color: #dc5496;"></i>Rasrava Fest  <!-- DIISI DENGAN JUDUL EVENT-->
+    <i class="fas fa-star" style="margin-right: 15px; color: #dc5496;"></i>{{$event->judul}}  <!-- DIISI DENGAN JUDUL EVENT-->
     </h2>
 
     <!-- Deskripsi -->
     <p style="font-size: 16px; font-weight: 600; color: #4389cf; margin-bottom: 8px;">Deskripsi Acara</p>
     <p style="font-size: 14px; margin: 12px 0; color: #515151;">  <!-- DIISI DENGAN DESC-->
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry...
+      {{$event->deskripsi}}
     </p>
 
     <!-- Tabel Tanggal & Lokasi -->
@@ -72,26 +72,29 @@
       <tr style="border-bottom: 1px solid #ccc;">
         <td style="padding: 10px; font-weight: 500; border-right: 1px solid #ccc;">Harga Tiket</td>
         <td style="background-color: #d0e7ff; color: #5cadff; font-weight: 600; padding: 6px 12px; border-radius: 6px;" id="hargaTiket">
-          Rp. 230.000  <!-- DIISI DENGAN HARGA-->
+          {{ $event->harga_tiket }}  <!-- DIISI DENGAN HARGA-->
         </td>
       </tr>
       <tr style="border-bottom: 1px solid #ccc;">
         <td style="padding: 10px; font-weight: 500; border-right: 1px solid #ccc;">Tanggal Acara</td>
-        <td style="padding: 10px;">15 Juni 2025</td>  <!-- DIISI DENGAN TANGGGAL EVENT-->
+        <td style="padding: 10px;">
+          {{ $event->tanggal_event }}</td>  <!-- DIISI DENGAN TANGGGAL EVENT-->
       </tr>
       <tr>
         <td style="padding: 10px; font-weight: 500; border-top: 1px solid #ccc; border-right: 1px solid #ccc;">Lokasi Acara</td>
-        <td style="padding: 10px; border-top: 1px solid #ccc;">Sudimoro, Malang, Jawa Timur</td>  <!-- DIISI DENGAN LOKASI-->
+        <td style="padding: 10px; border-top: 1px solid #ccc;">
+          {{ $event->lokasi }}</td>  <!-- DIISI DENGAN LOKASI-->
       </tr>
     </table>
 
     <!-- Total dan Jumlah -->
     <p style="font-size: 16px; font-weight: 600; color: #4389cf; margin-bottom: 8px;">Total Pembelian</p>
     <div style="margin-bottom: 40px; font-size: 16px; color: #515151;" id="totalDisplay">
-      Rp. 230.000 x 1 = <strong>Rp. 230.000</strong>  <!-- DIISI DENGAN HARGA-->
+      {{$event->harga_tiket}} x 1 = <strong>{{$event->harga_tiket}}</strong>  <!-- DIISI DENGAN HARGA-->
     </div>
 
     <div style="margin-top: 20px; display: flex; align-items: center; gap: 10px;">
+      
       <button style="
         background-color: #4389cf;
         color: #fff;
@@ -100,7 +103,8 @@
         border-radius: 4px;
         cursor: pointer;
         font-size: 14px;
-      ">
+      "
+      type="submit">
         Buat Pesanan
       </button>
       <input type="number" id="jumlahTiket" value="1" min="1" style="

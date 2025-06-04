@@ -13,10 +13,10 @@ use App\Http\Controllers\{
 use App\Models\Pembelian;
 
 Route::get('/', [LandingController::class, 'home'])->name('home');
+Route::get('/events', [LandingController::class, 'event'])->name('event');
 
 // Guest (belum login)
 Route::middleware(['guest'])->group(function () {
-    Route::get('/events', [LandingController::class, 'event'])->name('event');
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::get('/register', [AuthController::class, 'register']);
     Route::post('/register/store', [AuthController::class, 'regisakun'])->name('regisakun');
@@ -24,7 +24,7 @@ Route::middleware(['guest'])->group(function () {
 });
 Route::middleware(['auth', 'role:Admin,Penyelenggara,User']) // pakai koma, bukan garis miring atau pipe
     ->group(function () {
-        Route::get('/event/detail', [LandingController::class, 'detailevent'])->name('detailevent');
+        Route::get('/event/detail/{id}', [LandingController::class, 'detailevent'])->name('detailevent');
     });
 
 

@@ -52,7 +52,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" style="font-size: 0.9rem; color: #515151;" aria-current="page"
-                            href="/event">Event</a>
+                            href="/events">Event</a>
                     </li>
 
                     <!-- Tombol Login -->
