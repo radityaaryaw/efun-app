@@ -33,7 +33,7 @@
                                         -webkit-background-clip: text;
                                         -webkit-text-fill-color: transparent;
                                         font-weight: bold;
-                                    ">Halo,Fun
+                                    ">Halo, Fun
                                 People!
                             </span> Temukan Destinasi Liburanmu Sekarang!
                         </h1>
@@ -41,10 +41,13 @@
                             Jelajahi berbagai acara menarik dan atraksi favorit di satu tempat. Daftarkan dirimu sekarang
                             dan jangan lewatkan pengalaman seru lainnya!
                         </p>
-                        <a href="/register" class="btn-riwayat"
-                            style="font-size: 16px; font-weight: 600; text-decoration: none; width: fit-content; background-color: #5cadff; margin: 12px;">
-                            Daftar Sekarang
-                        </a>
+                        @guest
+                            <a href="/register" class="btn-riwayat"
+                                style="font-size: 16px; font-weight: 600; text-decoration: none; width: fit-content; background-color: #5cadff; margin: 12px;">
+                                Daftar Sekarang
+                            </a>
+                        @endguest
+
 
                     </div>
 

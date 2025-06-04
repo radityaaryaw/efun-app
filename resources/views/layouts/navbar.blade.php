@@ -55,6 +55,7 @@
                             href="/events">Event</a>
                     </li>
 
+
                     <!-- Tombol Login -->
                     @guest
                         <li class="nav-item d-flex align-items-center ms-3">
@@ -73,12 +74,18 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <form action="/logout" method="POST">
+                                    <form action="/logout" method="get">
                                         @csrf
                                         <button type="submit" class="dropdown-item"
                                             style="font-size: 0.85rem;">Logout</button>
                                     </form>
                                 </li>
+
+                                <li>
+                                    <a class="dropdown-item" style="font-size: 0.85rem;"
+                                        href="/dashboard/user">Dashboard</a>
+                                </li>
+
                             </ul>
                         </li>
                     @endauth
