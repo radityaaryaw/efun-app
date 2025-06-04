@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use App\Models\Kategori;
+use App\Models\Tiket;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,14 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::create([
-            'email' => 'admin@gmail.com',
-            'name' => 'Administrator',
-            'username' => 'admin',
-            'password' => Hash::make('admin123'),
-            'address' => 'Jalan aja ga jadian',
-            'role' => 'Admin',
+        $this->call([
+            UserSeeder::class,
+            KategoriSeeder::class,
+            EventSeeder::class,
+            TiketSeeder::class,
+            PembelianSeeder::class,
         ]);
-
     }
 }

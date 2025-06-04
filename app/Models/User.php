@@ -24,7 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'address',
+        'jenis_kelamin',
     ];
 
     /**
@@ -46,16 +46,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function borrow()
+    // Event yang diselenggarakan
+    public function events()
     {
-        return $this->hasMany(Borrow::class, 'user_id');
+        return $this->hasMany(Event::class, 'penyelenggara_id');
     }
-    public function collection()
+
+    // Tiket yang dibeli
+    public function tikets()
     {
-        return $this->hasMany(Collection::class, 'user_id');
-    }
-    public function review()
-    {
-        return $this->hasMany(Review::class);
+        return $this->hasMany(Tiket::class);
     }
 }

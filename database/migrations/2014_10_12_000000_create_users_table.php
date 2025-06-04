@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('role', ['Admin', 'User', 'Penyelenggara'])->default('User');
-            $table->text('address');
-            $table->rememberToken();
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
             $table->timestamps();
         });
     }

@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+body {
+    font-family: 'Poppins', sans-serif;
+
+
+}
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+margin-top: -200px;
+}
+
+.card {
+  background: linear-gradient(#f9fafb, #e1f0f9, #c7e6f7);
+  height: 450px;
+  border-radius: 15px;
+}
+
+.vh-100 {
+    margin-top: -50px;
+}

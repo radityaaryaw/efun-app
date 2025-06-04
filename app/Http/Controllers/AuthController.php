@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -12,69 +10,83 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    //VIEW DASHBOARD --------------------------------
-    public function admin() {
-        return view ('dashboard.admin.dashboard');
+    // VIEW DASHBOARD --------------------------------
+    public function admin()
+    {
+        return view('dashboard.admin.dashboard');
     }
 
-    public function officer() {
-        return view ('dashboard.officer.dashboard');
+    public function user()
+    {
+        return view('dashboard.user.dashboard');
     }
 
-    public function user() {
-        return view ('dashboard.user.dashboard');
+    public function penyelenggara()
+    {
+        return view('dashboard.penyelenggara.dashboard');
     }
 
-    //LOGIKA LOGIN & REGISTER --------------------------
-    public function login() {
-        return view ('form.login');
+    // LOGIKA LOGIN & REGISTER --------------------------
+    public function login()
+    {
+        return view('form.login');
     }
 
-    public function auth(Request $request) {
-        $user = $request -> validate([
-            'username' => 'required',
-            'password' => 'required',
+    public function auth(Request $request)
+    {
+        $credentials = $request->validate([
+            'email'    => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
-        if(Auth::attempt($user)) {
-            if(Auth::user()->role == 'Admin' ) {
-                return redirect()->route('admin.dash');
-            }elseif(Auth::user()->role == 'User' ) {
-                return redirect()->route('user.dash');
-            }else {
-                return redirect()->route('officer.dash');
-            } 
-        }else {
-            return redirect()->back()->with('danger', "Gagal login, silahkan periksa dan coba lagi!");
+        if (Auth::attempt($credentials, $request->has('remember'))) {
+            $request->session()->regenerate();
+
+            $role = Auth::user()->role;
+
+            if ($role === 'Admin') {
+                return redirect()->intended('/dashboard/admin');
+            } elseif ($role === 'Penyelenggara') {
+                return redirect()->intended('/dashboard/penyelenggara');
+            } else {
+                return redirect()->intended('/dashboard/user');
+            }
         }
-    }
-    public function register() {
-        return view ('form.register');
+
+        return back()->withErrors([
+            'email' => 'Email atau password salah.',
+        ])->onlyInput('email');
     }
 
-    public function regisakun(Request $request) {
-        $validateData = $request -> validate ([
-            'name' => 'required',
-            'username' => 'required',
-            'email' => 'required|unique:users',
-            'password' => 'required',
-            'address' => 'required',
+    public function register()
+    {
+        return view('form.register');
+    }
+
+    public function regisakun(Request $request)
+    {
+        $validated = $request->validate([
+            'name'          => 'required|string|max:255',
+            'username'      => 'required|string|max:255|unique:users',
+            'email'         => 'required|email|unique:users',
+            'password'      => 'required|string|min:6',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
         ]);
 
-        $validateData['password'] = bcrypt($validateData['password']);
-        User::create ([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' =>  Hash::make($request->password),
-            'address' => $request->address,
-            'role' => 'User'
+        User::create([
+            'name'          => $validated['name'],
+            'username'      => $validated['username'],
+            'email'         => $validated['email'],
+            'password'      => Hash::make($validated['password']),
+            'role'          => 'User',
+            'jenis_kelamin' => $validated['jenis_kelamin'],
         ]);
 
-        return redirect()->route('login')->with('success', 'Registrasi berhasil!, silahkan login sekarang');
+        return redirect()->route('login')->with('success', 'Registrasi berhasil! Silakan login.');
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
         return redirect('/');
     }

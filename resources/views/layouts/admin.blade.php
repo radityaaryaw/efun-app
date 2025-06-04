@@ -8,7 +8,8 @@
     {{-- <link rel="stylesheet" href="{{ asset('public/css/admin.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('css/admin-dashboard.css') }}">
     {{-- fav icon --}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     {{-- cdn font awesome --}}
@@ -34,12 +35,12 @@
     <link id="pagestyle" href="{{ asset('css/material-dashboard.css?v=3.1.0') }}" rel="stylesheet" />
 
     <title>
-        @if(Auth::user()->role == 'Admin')
-        Admin Dashboard
+        @if (Auth::user()->role == 'Admin')
+            Admin Dashboard
         @elseif(Auth::user()->role == 'User')
-        User Dashboard
+            User Dashboard
         @else
-        Penyelenggara Dashboard
+            Penyelenggara Dashboard
         @endif
     </title>
 
@@ -74,6 +75,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('assets/js/material-dashboard.min.js?v=3.1.0') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 
