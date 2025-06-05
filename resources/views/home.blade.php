@@ -35,7 +35,7 @@
                                         font-weight: bold;
                                     ">Halo, Fun
                                 People!
-                            </span> Temukan Destinasi Liburanmu Sekarang!
+                            </span> Not Just a Feeling—It’s Euphoria.
                         </h1>
                         <p style="font-size: 16px; margin-top: 20px; color: #515151;">
                             Jelajahi berbagai acara menarik dan atraksi favorit di satu tempat. Daftarkan dirimu sekarang

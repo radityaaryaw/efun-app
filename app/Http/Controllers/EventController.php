@@ -8,20 +8,40 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    // Tampilkan daftar event (dengan pencarian opsional)
+    // Tampilkan daftar event dengan pencarian opsional
     public function index(Request $request)
     {
+        $user = auth()->user();
         $search = $request->input('search');
+        $kategoris = Kategori::all();
 
-        $query = Event::with('kategori');
+        $query = Event::with('kategori', 'penyelenggara', 'tikets');
 
-        if ($search) {
-            $query->where('judul', 'like', "%{$search}%")
-                  ->orWhere('lokasi', 'like', "%{$search}%");
+        if ($user->role === 'Admin') {
+            if ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('judul', 'like', "%{$search}%")
+                        ->orWhere('lokasi', 'like', "%{$search}%");
+                });
+            }
+
+            $events = $query->orderBy('created_at', 'desc')->paginate(10);
+            return view('dashboard.admin.eventmenu.event', compact('events', 'search', 'kategoris'));
+        } elseif ($user->role === 'Penyelenggara') {
+            $query->where('penyelenggara_id', $user->id);
+
+            if ($search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('judul', 'like', "%{$search}%")
+                        ->orWhere('lokasi', 'like', "%{$search}%");
+                });
+            }
+
+            $events = $query->orderBy('created_at', 'desc')->paginate(10);
+            return view('dashboard.penyelenggara.pengajuan.event', compact('events', 'search', 'kategoris'));
+        } else {
+            abort(403, 'Unauthorized');
         }
-        $event = $query->orderBy('created_at', 'desc')->paginate(10);
-        $events = Event::with('kategori','penyelenggara','tikets')->get();
-        return view('dashboard.admin.eventmenu.event', compact('events', 'search'));
     }
 
     // Tampilkan form tambah event
@@ -48,7 +68,7 @@ class EventController extends Controller
             $validated['event_img'] = $request->file('event_img')->store('events', 'public');
         }
 
-        $validated['status'] = 'Pending'; // Default status saat membuat event
+        $validated['status'] = 'Pending'; // Status default
 
         Event::create($validated);
 
@@ -71,29 +91,42 @@ class EventController extends Controller
     // Update event
     public function update(Request $request, Event $event)
     {
-        $validated = $request->validate([
-            'judul'         => 'required|string|max:255',
-            'deskripsi'     => 'nullable|string',
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string',
             'tanggal_event' => 'required|date',
-            'lokasi'        => 'required|string|max:255',
-            'harga_tiket'   => 'required|integer|min:0',
-            'kategori_id'   => 'required|exists:kategoris,id',
-            'event_img'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'lokasi' => 'required|string|max:255',
+            'harga_tiket' => 'required|integer|min:0',
+            'status' => 'required|in:Pending,Disetujui,Ditolak',
+            'kategori_id' => 'required|exists:kategoris,id',
+            'event_img' => 'nullable|image|max:2048',
         ]);
 
+        $data = $request->only(['judul', 'deskripsi', 'tanggal_event', 'lokasi', 'harga_tiket', 'status', 'kategori_id']);
+
         if ($request->hasFile('event_img')) {
-            $validated['event_img'] = $request->file('event_img')->store('events', 'public');
+            // Hapus file lama jika ada
+            if ($event->event_img && file_exists(public_path($event->event_img))) {
+                unlink(public_path($event->event_img));
+            }
+
+            $file = $request->file('event_img');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('event_imgs'), $filename);
+            $data['event_img'] = 'event_imgs/' . $filename;
         }
 
-        $event->update($validated);
+        $event->update($data);
 
-        return redirect()->route('events.index')->with('success', 'Event berhasil diperbarui!');
+        return redirect()->route('penyelenggara.event.index')->with('success', 'Event berhasil diperbarui.');
     }
+
 
     // Hapus event
     public function destroy(Event $event)
     {
         $event->delete();
+
         return redirect()->route('events.index')->with('success', 'Event berhasil dihapus!');
     }
 

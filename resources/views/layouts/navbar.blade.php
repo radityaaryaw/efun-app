@@ -80,15 +80,29 @@
                                             style="font-size: 0.85rem;">Logout</button>
                                     </form>
                                 </li>
-                                @if (auth()->user()->role == 'admin')
+                                @if (auth()->user()->role == 'Admin')
                                     <li>
-                                        <a class="dropdown-item" href="/dashboard" style="font-size: 0.85rem;">Dashboard</a>
+                                        <a class="dropdown-item" href="{{ route('admin.dash') }}"
+                                            style="font-size: 0.85rem;">
+                                            Dashboard
+                                        </a>
+                                    </li>
+                                @elseif (auth()->user()->role == 'Penyelenggara')
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('penyelenggara.dash') }}"
+                                            style="font-size: 0.85rem;">
+                                            Dashboard
+                                        </a>
+                                    </li>
+                                @elseif (auth()->user()->role == 'User')
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('user.dash') }}"
+                                            style="font-size: 0.85rem;">
+                                            Dashboard
+                                        </a>
                                     </li>
                                 @endif
-                                <li>
-                                    <a class="dropdown-item" href="/dashboard/user"
-                                        style="font-size: 0.85rem;">Dashboard</a>
-                                </li>
+
                             </ul>
                         </li>
                     @endauth

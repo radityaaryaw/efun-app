@@ -29,7 +29,7 @@ class EventSeeder extends Seeder
                 'tanggal_event' => '2025-09-10',
                 'lokasi' => 'Stadion Sepak Bola',
                 'harga_tiket' => 100000,
-                'event_img' => 'logo.png',
+                'event_img' => 'contoh.png',
                 'status' => 'Pending',
                 'kategori_id' => 2,
                 'penyelenggara_id' => 2,

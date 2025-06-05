@@ -3,48 +3,17 @@
 
     <body class="g-sidenav-show  bg-gray-200">
         <!-- Navbar -->
-            @include('dashboard.penyelenggara.partials.navbar')
+            @include('dashboard.penyelenggara.partials.sidebar')
         <!-- End Navbar -->
 
         <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
             <!-- Side Navbar -->
-            <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-                data-scroll="true">
-                <div class="container-fluid py-3 px-3">
-                    <nav aria-label="breadcrumb">
-                        <h5 class="font-weight-bolder mb-0"
-                            style="font-family: 'Poppins', sans-serif; color: #515151; font-weight:bold;">Validasi Data</h5>
-                        <p id="tanggal" class="mb-0"
-                            style="color: #515151; font-size: 14px; font-family: 'Poppins', sans-serif; font-weight: 500;">
-                        </p>
-                    </nav>
-                    <ul class="navbar-nav  justify-content-end">
-                        <li class="nav-item d-flex align-items-center">
-                            <a class="nav-link text-body px-0">
-                                <span
-                                    style="display: none; font-family: 'Poppins', sans-serif; color: #515151; font-weight: 600;"
-                                    class="d-sm-inline d-none">Hai, {{ Auth::user()->name }}&ensp;</span>
-                                <i class="fa fa-user me-sm-1" style="color: #515151;"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                </div>
-            </nav>
+            @include('dashboard.penyelenggara.partials.navbar')
             <!-- End Side Navbar -->
-            {{-- <div class="button-container" style="padding-bottom: 20px; padding-top: 10px; display: flex; justify-content: space-between; padding-right: 30px;">
-                <button type="button" class="btn-riwayat" onclick="" style="font-size: 13px;">
-                    <i class="fa-solid fa-print" style="margin-right: 10px;"></i> Print Bukti
-                </button>
-                <button type="button" class="btn-terima" onclick="" style="font-size: 13px;">
-                    <i class="fa-solid fa-download" style="margin-right: 10px;"></i> Export Excel
-                </button>
-            </div> --}}
-
 
             <div class="table-container" style="font-family: 'Poppins', sans-serif; font-size: 13px;">
                 <table class="table">
-                    <form action="{{ route('pembelian.create') }}" method="GET">
+                    <form action="{{ route('penyelenggara.pembelian.create') }}" method="GET">
                         <div class="input-group">
                             <div class="form-outline" data-mdb-input-init>
                                 <input type="search" value="{{ request('search') }}" style="font-size: 14px; width: 400px;"

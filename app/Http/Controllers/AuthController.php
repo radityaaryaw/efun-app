@@ -10,22 +10,6 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
-    // VIEW DASHBOARD --------------------------------
-    public function admin()
-    {
-        return view('dashboard.admin.dashboard');
-    }
-
-    public function user()
-    {
-        return view('dashboard.user.dashboard');
-    }
-
-    public function penyelenggara()
-    {
-        return view('dashboard.penyelenggara.dashboard');
-    }
-
     // LOGIKA LOGIN & REGISTER --------------------------
     public function login()
     {
